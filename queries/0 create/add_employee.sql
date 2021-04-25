@@ -16,7 +16,7 @@ SET
 	first_name = "Robert",
     last_name = "Adams",
     role_id = 4,
-    manager_id = 3
+    manager_id = 3 -- or NULL
 ;
 
 SELECT * FROM employee;
