@@ -1,4 +1,4 @@
 USE employee_tracker_db;
 
--- view departments
+-- USE THIS QUERY TO VIEW ALL DEPARTMENTS
 SELECT name FROM department;

@@ -1,6 +1,6 @@
 USE employee_tracker_db;
 
--- THIS IS THE QUERY FOR "View All Employees"
+-- THIS IS THE QUERY TO VIEW ALL EMPLOYEES & THEIR ROLES
 SELECT 
 e.id, e.first_name, e.last_name,
 role.title, department.name, role.salary, 
