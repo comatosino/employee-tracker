@@ -11,4 +11,4 @@ SET
 	name = "Quality"
 ;
 
--- SELECT * FROM department;
+SELECT * FROM department;
