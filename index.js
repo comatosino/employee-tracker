@@ -9,10 +9,32 @@ const connection = mysql.createConnection({
     database: 'employee_tracker_db',
 });
 
+const mainMenuQuestions = [
+    {
+      type: 'input',
+      message: 'What is your user name?',
+      name: 'username',
+    },
+    {
+      type: 'password',
+      message: 'What is your password?',
+      name: 'password',
+    },
+    {
+      type: 'password',
+      message: 'Re-enter password to confirm:',
+      name: 'confirm',
+    },
+  ]
+
+
+
+
 connection.connect((err) => {
     if (err) throw err;
 
-    // console.log(`connected as id ${connection.threadId}`);
+    console.log(`connected as id ${connection.threadId}`);
+    mainMenu();
 
     // readDepartments(); // testing
     // readRoles(); // testing
@@ -46,21 +68,29 @@ connection.connect((err) => {
     //     },
     // ]);
 
-    connection.end();     // terminates connection
+    // connection.end();     // terminates connection
 });
 
-const readDepartments = () => {
+const readDepartments = async () => {
     const query = `
     SELECT name 
       FROM department
     `;
+
+    try {
+
+    } catch (err) {
+        throw err;
+    }
+
+
 
     connection.query(query, (err, res) => {
         if (err) throw err;
 
         // console.log(res);  // check out what the query looks like!
         console.table(res);   // built-in formatting
-        
+        mainMenu();
     });
 };
 
@@ -83,7 +113,7 @@ const readRoles = () => {
         // query returns a javaScript object
         // console.log(res);     // check out what the query looks like!
         console.table(res);   // built-in formatting
-
+        mainMenu();
     });
 };
 
@@ -109,7 +139,7 @@ const readEmployees = () => {
 
         // console.log(res);  // check out what the query looks like!
         console.table(res);   // built-in formatting
-
+        mainMenu();
     });
 };
 
@@ -154,3 +184,47 @@ const updateRole = (input) => {
     });
 };
 
+async function mainMenu() {
+
+    const response = await inquirer.prompt([{
+        type: 'list',
+        name: 'choice',
+        message: 'What would you like to do?',
+        choices: ["View all departments", 
+                  "View all roles", 
+                  "View all employees",
+                  "Add a department",
+                  "Add a role",
+                  "Add an employee",
+                  "Update an employee role"
+                 ]
+    }]);
+    // console.log(response.choice);
+
+    switch (response.choice) {
+        case "View all departments":
+            readDepartments();
+            break;
+        case "View all roles":
+            readRoles();
+            break;
+        case "View all employees":
+            readEmployees();
+            break;
+        case "Add a department":
+            
+            break;
+        case "Add a role":
+            
+            break;
+        case "Add an employee":
+            
+        break; 
+        case "Update an employee role":
+            
+            break;               
+        default:
+            break;
+    }
+
+}
