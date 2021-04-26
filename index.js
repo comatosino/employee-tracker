@@ -9,27 +9,6 @@ const connection = mysql.createConnection({
     database: 'employee_tracker_db',
 });
 
-const mainMenuQuestions = [
-    {
-      type: 'input',
-      message: 'What is your user name?',
-      name: 'username',
-    },
-    {
-      type: 'password',
-      message: 'What is your password?',
-      name: 'password',
-    },
-    {
-      type: 'password',
-      message: 'Re-enter password to confirm:',
-      name: 'confirm',
-    },
-  ]
-
-
-
-
 connection.connect((err) => {
     if (err) throw err;
 
@@ -71,19 +50,11 @@ connection.connect((err) => {
     // connection.end();     // terminates connection
 });
 
-const readDepartments = async () => {
+const readDepartments = () => {
     const query = `
     SELECT name 
       FROM department
     `;
-
-    try {
-
-    } catch (err) {
-        throw err;
-    }
-
-
 
     connection.query(query, (err, res) => {
         if (err) throw err;
@@ -143,13 +114,30 @@ const readEmployees = () => {
     });
 };
 
-const addDepartment = (input) => {
+const addDepartment = async () => {
+
+    // get name of new dept from user
+    const newDept = await inquirer.prompt([{
+        name: 'name',
+        type: 'input',
+        message: 'What is the name of the new department?',
+    }]);
+
+    // for consistency across other functions, save value to obj 
+    values = {
+        name: newDept.name
+    }
+
+    // build query
     const query = `
     INSERT INTO department 
             SET ?
     `;
-    connection.query(query, input, (err, res) => {
+    
+    //query db
+    connection.query(query, values, (err, res) => {
         if (err) throw err;
+        mainMenu();
     });
 };
 
@@ -196,10 +184,10 @@ async function mainMenu() {
                   "Add a department",
                   "Add a role",
                   "Add an employee",
-                  "Update an employee role"
+                  "Update an employee role",
+                  "Exit the application",
                  ]
     }]);
-    // console.log(response.choice);
 
     switch (response.choice) {
         case "View all departments":
@@ -212,18 +200,19 @@ async function mainMenu() {
             readEmployees();
             break;
         case "Add a department":
-            
+            addDepartment();
             break;
         case "Add a role":
-            
+            connection.end();
             break;
         case "Add an employee":
-            
-        break; 
+            connection.end();
+            break; 
         case "Update an employee role":
-            
+            connection.end();
             break;               
         default:
+            connection.end();
             break;
     }
 
