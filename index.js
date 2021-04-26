@@ -14,11 +14,13 @@ connection.connect((err) => {
 
     // console.log(`connected as id ${connection.threadId}`);
 
-    // readDepartments();
-    // readRoles();
-    // readEmployees();
+    // readDepartments(); // testing
+    // readRoles(); // testing
+    // readEmployees(); // testing
 
-    // addDepartment("Quality"); // testing
+    // addDepartment([{ // testing
+    //     name: "Quality"
+    // }]); 
 
     // addRole({ // testing
     //     title: "Quality Manager",
@@ -26,12 +28,21 @@ connection.connect((err) => {
     //     department_id: 5,
     // });
 
-    // addEmployee({ // testing
+    // addEmployee([{ // testing
     //     first_name: "Robert",
     //     last_name: "Adams",
-    //     role_id: 4,
+    //     role_id: 7,
     //     manager_id: null,
-    // });
+    // }]);
+
+    // updateRole([ // testing
+    //     {   /*SET*/
+    //         role_id: 4,     
+    //     },
+    //     {   /*WHERE*/
+    //         id: 9,
+    //     },
+    // ]);
 
     connection.end();     // terminates connection
 });
@@ -45,17 +56,17 @@ const readDepartments = () => {
     connection.query(query, (err, res) => {
         if (err) throw err;
 
-        // res => "result"
-        // query returns a javaScript object
-        // console.log(res);     // check out what the query looks like!
+        // console.log(res);  // check out what the query looks like!
         console.table(res);   // built-in formatting
         
-        });
+    });
 };
 
 const readRoles = () => {
     const query = `
-      SELECT title AS Title, salary AS Salary, name AS Department 
+      SELECT title AS Title, 
+             salary AS Salary, 
+             name AS Department 
         FROM role
         JOIN department 
           ON role.department_id = department.id
@@ -94,9 +105,7 @@ const readEmployees = () => {
     connection.query(query, (err, res) => {
         if (err) throw err;
 
-        // res => "result"
-        // query returns a javaScript object
-        // console.log(res);     // check out what the query looks like!
+        // console.log(res);  // check out what the query looks like!
         console.table(res);   // built-in formatting
 
     });
@@ -105,7 +114,7 @@ const readEmployees = () => {
 const addDepartment = (input) => {
     const query = `
     INSERT INTO department 
-            SET name = ?
+            SET ?
     `;
     connection.query(query, input, (err, res) => {
         if (err) throw err;
@@ -131,3 +140,15 @@ const addEmployee = (input) => {
         if (err) throw err;
     });
 };
+
+const updateRole = (input) => {
+    const query = `
+    UPDATE employee
+       SET ?
+     WHERE ?
+    `;
+    connection.query(query, input, (err, res) => {
+        if (err) throw err;
+    });
+};
+
