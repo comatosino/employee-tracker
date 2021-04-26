@@ -28,28 +28,47 @@ connection.connect((err) => {
 });
 
 const readDepartments = () => {
-
     const query = `
-    SELECT name 
-    FROM department`;
+    SELECT 
+        name 
+    FROM 
+        department
+    `;
 
     connection.query(query, (err, res) => {
-      if (err) throw err;
-      console.table(res);   // check out what the query looks like!
-    });
+        if (err) throw err;
+
+        // res => "result"
+        // query returns a javaScript object
+        // console.log(res);     // check out what the query looks like!
+        console.table(res);   // built-in formatting
+        
+        });
 };
 
 const readRoles = () => {
-
     const query = `
-    SELECT title AS Title, salary AS Salary, name AS Department 
-    FROM role
-    JOIN department ON role.department_id = department.id
-    ORDER BY department`;
+    SELECT 
+        title AS Title, salary AS Salary, name AS Department 
+    FROM 
+        role
+    JOIN 
+        department 
+    ON 
+        role.department_id = department.id
+    ORDER BY 
+        department
+    `;
 
     connection.query(query, (err, res) => {
-      if (err) throw err;
-      console.table(res);   // check out what the query looks like!
+
+        if (err) throw err;
+
+        // res => "result"
+        // query returns a javaScript object
+        // console.log(res);     // check out what the query looks like!
+        console.table(res);   // built-in formatting
+
     });
 };
 
@@ -59,16 +78,28 @@ const readEmployees = () => {
         e.id, e.first_name, e.last_name,
         role.title, department.name, role.salary, 
         CONCAT(m.first_name, ' ', m.last_name) AS 'Manager'
-    FROM employee e
-        INNER JOIN role ON e.role_id = role.id
-        INNER JOIN department ON role.department_id = department.id
-        LEFT JOIN employee m ON e.manager_id = m.id`;
+    FROM 
+        employee e
+    INNER JOIN
+        role 
+    ON 
+        e.role_id = role.id
+    INNER JOIN 
+        department 
+    ON 
+        role.department_id = department.id
+    LEFT JOIN 
+        employee m 
+    ON e.manager_id = m.id
+    `;
 
     connection.query(query, (err, res) => {
         if (err) throw err;
 
-        console.table(res);   // check out what the query looks like!
-
+        // res => "result"
+        // query returns a javaScript object
+        // console.log(res);     // check out what the query looks like!
+        console.table(res);   // built-in formatting
 
     });
 };
