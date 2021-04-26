@@ -2,11 +2,11 @@ const mysql = require('mysql');       // for interacting with db
 const inquirer = require('inquirer'); // for managing user input
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  port: 3306,
-  user: 'root',
-  password: 'password',
-  database: 'employee_tracker_db',
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: 'password',
+    database: 'employee_tracker_db',
 });
 
 connection.connect((err) => {
@@ -18,7 +18,12 @@ connection.connect((err) => {
     // readRoles();
     // readEmployees();
 
-    addDepartment("Quality");
+    // addDepartment("Quality");
+    // addRole({
+    //     title: "Quality Manager",
+    //     salary: 110000,
+    //     department_id: 5,
+    // });
 
     connection.end();     // terminates connection
 });
@@ -93,6 +98,16 @@ const addDepartment = (input) => {
     const query = `
     INSERT INTO department 
             SET name = ?
+    `;
+    connection.query(query, input, (err, res) => {
+        if (err) throw err;
+    });
+};
+
+const addRole = (input) => {
+    const query = `
+    INSERT INTO role
+            SET ?
     `;
     connection.query(query, input, (err, res) => {
         if (err) throw err;
