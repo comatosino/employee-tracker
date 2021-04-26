@@ -12,7 +12,7 @@ USE employee_tracker_db;
 -- run below statement subbing for user input
 
 UPDATE employee
-SET role_id = 4
+SET role_id = 4        
 WHERE employee.id = 9;
 
 SELECT * FROM employee;

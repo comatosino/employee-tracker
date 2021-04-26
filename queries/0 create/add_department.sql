@@ -8,7 +8,7 @@ USE employee_tracker_db;
 INSERT INTO 
 	department 
 SET 
-	name = "Quality"
+	name = "Quality" -- from user input
 ;
 
 SELECT * FROM department;

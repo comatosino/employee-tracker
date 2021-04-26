@@ -5,9 +5,11 @@ USE employee_tracker_db;
 
 -- query role for list of roles
 -- prompt user to select role from that list
+-- save role id
 -- prompt for first_name and last_name
 -- query employee for list of employees
 -- prompt user to select new employee's manager (or none)
+    -- save manager id
 	-- if no manager selected, manager_id = null
 
 INSERT INTO 
