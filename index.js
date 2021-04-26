@@ -15,14 +15,6 @@ connection.connect((err) => {
     console.log(`connected as id ${connection.threadId}`);
     mainMenu();
 
-    // readDepartments(); // testing
-    // readRoles(); // testing
-    // readEmployees(); // testing
-
-    // addDepartment([{ // testing
-    //     name: "Quality"
-    // }]); 
-
     // addRole({ // testing
     //     /*SET*/
     //     title: "Quality Manager",
@@ -47,7 +39,6 @@ connection.connect((err) => {
     //     },
     // ]);
 
-    // connection.end();     // terminates connection
 });
 
 const readDepartments = () => {
