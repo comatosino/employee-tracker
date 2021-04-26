@@ -18,11 +18,19 @@ connection.connect((err) => {
     // readRoles();
     // readEmployees();
 
-    // addDepartment("Quality");
-    // addRole({
+    // addDepartment("Quality"); // testing
+
+    // addRole({ // testing
     //     title: "Quality Manager",
     //     salary: 110000,
     //     department_id: 5,
+    // });
+
+    // addEmployee({ // testing
+    //     first_name: "Robert",
+    //     last_name: "Adams",
+    //     role_id: 4,
+    //     manager_id: null,
     // });
 
     connection.end();     // terminates connection
@@ -107,6 +115,16 @@ const addDepartment = (input) => {
 const addRole = (input) => {
     const query = `
     INSERT INTO role
+            SET ?
+    `;
+    connection.query(query, input, (err, res) => {
+        if (err) throw err;
+    });
+};
+
+const addEmployee = (input) => {
+    const query = `
+    INSERT INTO employee
             SET ?
     `;
     connection.query(query, input, (err, res) => {
