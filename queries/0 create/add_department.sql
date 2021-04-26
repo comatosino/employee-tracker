@@ -5,10 +5,8 @@ USE employee_tracker_db;
 
 -- in js, prompt user for name of new dept
 -- replace "Quality" with user input
-INSERT INTO 
-	department 
-SET 
-	name = "Quality" -- from user input
+INSERT INTO department 
+        SET name = "Quality" -- from user input
 ;
 
 SELECT * FROM department;

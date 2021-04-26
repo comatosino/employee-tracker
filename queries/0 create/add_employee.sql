@@ -12,13 +12,11 @@ USE employee_tracker_db;
     -- save manager id
 	-- if no manager selected, manager_id = null
 
-INSERT INTO 
-	employee
-SET 
-	first_name = "Robert",
-    last_name = "Adams",
-    role_id = 4,
-    manager_id = 3 -- or NULL
+INSERT INTO employee
+        SET first_name = "Robert",
+            last_name = "Adams",
+            role_id = 4,
+            manager_id = 3 -- or NULL
 ;
 
 SELECT * FROM employee;

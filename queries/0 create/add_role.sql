@@ -9,12 +9,10 @@ USE employee_tracker_db;
 -- prompt user for role title and salary
 -- run below insert statement with param replaced by user input
 
-INSERT INTO 
-	role
-SET 
-	title = "Quality Manager",
-    salary = 110000,
-    department_id = 5
+INSERT INTO role
+		SET title = "Quality Manager",
+			salary = 110000,
+			department_id = 5
 ;
 
 SELECT * FROM role;
