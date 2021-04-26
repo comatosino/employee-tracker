@@ -23,12 +23,14 @@ connection.connect((err) => {
     // }]); 
 
     // addRole({ // testing
+    //     /*SET*/
     //     title: "Quality Manager",
     //     salary: 110000,
     //     department_id: 5,
     // });
 
     // addEmployee([{ // testing
+    //     /*SET*/
     //     first_name: "Robert",
     //     last_name: "Adams",
     //     role_id: 7,
