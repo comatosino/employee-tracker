@@ -14,9 +14,11 @@ connection.connect((err) => {
 
     // console.log(`connected as id ${connection.threadId}`);
 
-    readDepartments();
-    readRoles();
-    readEmployees();
+    // readDepartments();
+    // readRoles();
+    // readEmployees();
+
+    addDepartment("Quality");
 
     connection.end();     // terminates connection
 });
@@ -84,5 +86,15 @@ const readEmployees = () => {
         // console.log(res);     // check out what the query looks like!
         console.table(res);   // built-in formatting
 
+    });
+};
+
+const addDepartment = (input) => {
+    const query = `
+    INSERT INTO department 
+            SET name = ?
+    `;
+    connection.query(query, input, (err, res) => {
+        if (err) throw err;
     });
 };
