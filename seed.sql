@@ -1,4 +1,4 @@
-USE employee_tracker_db;
+-- USE employee_tracker_db;
 
 -- seed depts
 INSERT INTO department 
@@ -15,7 +15,7 @@ INSERT INTO role
 VALUES 
 ("Sales Lead", 100000, 1), 
 ("Salesperson", 80000, 1),
-("Lead Engineer", 150000, 1),
+("Lead Engineer", 150000, 2),
 ("Software Engineer", 120000, 2),
 ("Accountant", 125000, 3),
 ("Legal Team Lead", 250000, 4),
@@ -27,9 +27,13 @@ INSERT INTO employee
 VALUES 
 ("John", "Doe", 1, 3),
 ("Mike", "Chan", 2, 1),
-("Ashley", "Rodriguez", 2, NULL),
+("Ashley", "Rodriguez", 3, NULL),
 ("Kevin", "Tupik", 4, 3),
 ("Malia", "Brown", 5, NULL),
 ("Sarah", "Lourd", 6, NULL),
 ("Tom", "Allen", 7, 6),
 ("Christian", "Eckenrode", 3, 2);
+
+SELECT * FROM department;
+SELECT * FROM employee;
+SELECT * FROM role;
