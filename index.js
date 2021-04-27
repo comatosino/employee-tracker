@@ -11,23 +11,7 @@ const connection = mysql.createConnection({
 
 connection.connect((err) => {
     if (err) throw err;
-
-    console.log(`connected as id ${connection.threadId}`);
     mainMenu();
-
-
-
-
-
-    // updateRole([ // testing
-    //     {   /*SET*/
-    //         role_id: 4,     
-    //     },
-    //     {   /*WHERE*/
-    //         id: 9,
-    //     },
-    // ]);
-
 });
 
 const readDepartments = () => {
@@ -70,7 +54,7 @@ const readRoles = () => {
 
 const readEmployees = () => {
     const query = `
-       SELECT e.id AS 'ID', 
+       SELECT e.id AS 'Employee ID', 
               CONCAT(e.first_name, ' ', e.last_name) AS 'Employee',
               role.title AS 'Title', 
               department.name AS 'Department', 
@@ -115,7 +99,7 @@ const addDepartment = async () => {
     });
 };
 
-const addRole = async () => {
+const addRole = () => {
 
     connection.query("SELECT id, name FROM department", async (err, deptList) => {
         if (err) throw err;
@@ -162,7 +146,7 @@ const addRole = async () => {
     });
 };
 
-const addEmployee = (input) => {
+const addEmployee = () => {
 
     // query list of roles to retrieve id and title
     connection.query("SELECT role.id, title FROM role", async (err, roleList) => {
@@ -205,6 +189,7 @@ const addEmployee = (input) => {
                 empObj[row.name] = row.id;
             }
 
+            // prompt user for manager
             const manager = await inquirer.prompt([{
                 name: 'name',
                 type: 'list',
@@ -227,28 +212,60 @@ const addEmployee = (input) => {
             });
         });
     });
-
-    // addEmployee([{ // testing
-    //     /*SET*/
-    //     first_name: "Robert",
-    //     last_name: "Adams",
-    //     role_id: 7,
-    //     manager_id: null,
-    // }]);
-
-
-
-
 };
 
-const updateRole = (input) => {
-    const query = `
-    UPDATE employee
-       SET ?
-     WHERE ?
-    `;
-    connection.query(query, input, (err, res) => {
+const updateRole = () => {
+    
+    // need to get emps
+    connection.query("SELECT id, CONCAT(first_name, ' ', last_name) AS 'name' FROM employee", async (err, empList) => {
         if (err) throw err;
+
+        const empObj = {};
+        for (let i = 0; i < empList.length; i++) {
+            const row = empList[i];
+            empObj[row.name] = row.id;
+        }
+
+        const employee = await inquirer.prompt([{
+            name: 'name',
+            type: 'list',
+            message: "Whose role is to be updated?",
+            choices: Object.keys(empObj)
+        }]);
+
+        // need to get roles
+        connection.query("SELECT role.id, title FROM role", async (err, roleList) => {
+            if (err) throw err;
+
+            // create object to store roles and their ids
+            const roleObj = {};
+            for (let i = 0; i < roleList.length; i++) {
+                const row = roleList[i];
+                roleObj[row.title] = row.id;
+            }
+
+            const role = await inquirer.prompt([{
+                name: 'name',
+                type: 'list',
+                message: "What is this employee's new role?",
+                choices: Object.keys(roleObj)
+            }]);
+
+            const values = [
+                {
+                    role_id: roleObj[role.name],  
+                },
+                {
+                    id: empObj[employee.name],
+                },
+            ]
+            
+            // update db table
+            connection.query("UPDATE employee SET ? WHERE ?", values, (err, res) => {
+                if (err) throw err;
+                mainMenu();
+            });
+        });
     });
 };
 
@@ -289,11 +306,10 @@ async function mainMenu() {
             addEmployee();
             break; 
         case "Update an employee role":
-            connection.end();
+            updateRole();
             break;               
         default:
             connection.end();
             break;
     }
-
 }
