@@ -6,6 +6,10 @@
 
 This application creates, reads, and updates employee, role, and department information in a database.
 
+Click the gif below to see a video demo!
+
+[![link to video](./assets/employee-tracker.gif)](https://drive.google.com/file/d/1eCx1ITDIWLTwsx-tIBMbdGKAru4zVH19/view)
+
 ## Table of Contents
 
 - [Installation](#installation)
@@ -16,20 +20,20 @@ This application creates, reads, and updates employee, role, and department info
 - [License](#License)
 
 ## Installation
-
+```
 npm i
-
+```
 ## Usage
-
+```
 npm start
-
+```
 ## Contributing
 
 Contact me at one of the links below if you would like to contribute!
 
 ## Tests
 
-no testing instructions specified
+No tests specified currently
 
 ## Questions
 
