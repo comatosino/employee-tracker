@@ -4,7 +4,7 @@
 
 ## Description
 
-This application creates, reads, and updates employee, role, and departmentinformation in a database.
+This application creates, reads, and updates employee, role, and department information in a database.
 
 ## Table of Contents
 
@@ -17,11 +17,11 @@ This application creates, reads, and updates employee, role, and departmentinfor
 
 ## Installation
 
-run npm i to install dependencies
+npm i
 
 ## Usage
 
-run node index.js to start
+npm start
 
 ## Contributing
 
@@ -38,8 +38,6 @@ Questions? Reach out to me:
 GitHub: [comatosino](https://github.com/comatosino)
 
 Email: adamsiii.robert@gmail.com
-
-
 
 ## License
     
