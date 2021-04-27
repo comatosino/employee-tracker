@@ -9,6 +9,7 @@ const connection = mysql.createConnection({
     database: 'employee_tracker_db',
 });
 
+// connect to db
 connection.connect((err) => {
     if (err) throw err;
     mainMenu();
@@ -316,7 +317,7 @@ async function mainMenu() {
         case "Update an employee role":
             updateRole();
             break;               
-        default:
+        default: // exit application
             connection.end();
             break;
     }
