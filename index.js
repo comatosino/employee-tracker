@@ -17,13 +17,7 @@ connection.connect((err) => {
 
 
 
-    // addEmployee([{ // testing
-    //     /*SET*/
-    //     first_name: "Robert",
-    //     last_name: "Adams",
-    //     role_id: 7,
-    //     manager_id: null,
-    // }]);
+
 
     // updateRole([ // testing
     //     {   /*SET*/
@@ -136,20 +130,20 @@ const addRole = async () => {
         // get dept, name, salary of new role from user
         const newRole = await inquirer.prompt([
             {
-            name: 'roleDept',
-            type: 'list',
-            message: 'What department does this role belong to?',
-            choices: Object.keys(deptObj)
+                name: 'roleTitle',
+                type: 'input',
+                message: 'What is the title of the new role?',
             },
             {
-            name: 'roleTitle',
-            type: 'input',
-            message: 'What is the title of the new role?',
+                name: 'roleSalary',
+                type: 'input',
+                message: 'What is the salary of the new role?',
             },
             {
-            name: 'roleSalary',
-            type: 'input',
-            message: 'What is the salary of the new role?',
+                name: 'roleDept',
+                type: 'list',
+                message: 'What department does this role belong to?',
+                choices: Object.keys(deptObj)
             },
         ]);
 
@@ -160,6 +154,7 @@ const addRole = async () => {
             department_id: deptObj[newRole.roleDept],
         }
 
+        // add new role to db table
         connection.query("INSERT INTO role SET ?", values, (err, res) => {
             if (err) throw err;
             mainMenu();
@@ -168,13 +163,82 @@ const addRole = async () => {
 };
 
 const addEmployee = (input) => {
-    const query = `
-    INSERT INTO employee
-            SET ?
-    `;
-    connection.query(query, input, (err, res) => {
+
+    // query list of roles to retrieve id and title
+    connection.query("SELECT role.id, title FROM role", async (err, roleList) => {
         if (err) throw err;
+
+        // create object to store roles and their ids
+        const roleObj = {"No Role": null};
+        for (let i = 0; i < roleList.length; i++) {
+            const row = roleList[i];
+            roleObj[row.title] = row.id;
+        }
+
+        // prompt user for input
+        const newEmp = await inquirer.prompt([
+            {
+                name: 'firstName',
+                type: 'input',
+                message: "What is the employee's first name?",
+            },
+            {
+                name: 'lastName',
+                type: 'input',
+                message: "What is the employee's first name?",
+            },
+            {
+                name: 'empRole',
+                type: 'list',
+                message: "What is this employee's role?",
+                choices: Object.keys(roleObj)
+            },
+        ]);
+
+        // query list of employees to select manager
+        connection.query("SELECT id, CONCAT(first_name, ' ', last_name) AS 'name' FROM employee", async (err, empList) => {
+            if (err) throw err;
+
+            const empObj = {"No Manager": null};
+            for (let i = 0; i < empList.length; i++) {
+                const row = empList[i];
+                empObj[row.name] = row.id;
+            }
+
+            const manager = await inquirer.prompt([{
+                name: 'name',
+                type: 'list',
+                message: "Who is this employee's manager?",
+                choices: Object.keys(empObj)
+            }]);
+
+            // save user responses to object for placeholder
+            const values = {
+                first_name: newEmp.firstName,
+                last_name: newEmp.lastName,
+                role_id: roleObj[newEmp.empRole], 
+                manager_id: empObj[manager.name],
+            };
+
+            // add new employee to db table
+            connection.query("INSERT INTO employee SET ?", values, (err, res) => {
+                if (err) throw err;
+                mainMenu();
+            });
+        });
     });
+
+    // addEmployee([{ // testing
+    //     /*SET*/
+    //     first_name: "Robert",
+    //     last_name: "Adams",
+    //     role_id: 7,
+    //     manager_id: null,
+    // }]);
+
+
+
+
 };
 
 const updateRole = (input) => {
@@ -222,7 +286,7 @@ async function mainMenu() {
             addRole();
             break;
         case "Add an employee":
-            connection.end();
+            addEmployee();
             break; 
         case "Update an employee role":
             connection.end();
