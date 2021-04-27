@@ -1,10 +1,13 @@
-
-  [![MIT](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
+ [![MIT](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
 # Employee Tracker
 
 ## Description
 
-This application creates, reads, and updates employee, role, and departmentinformation in a database.
+This application creates and reads and updates employee, role, and department information in a database.
+
+Click the gif below to see a video demo!
+
+[![link to video](./assets/employee-tracker.gif)](https://drive.google.com/file/d/1eCx1ITDIWLTwsx-tIBMbdGKAru4zVH19/view)
 
 ## Table of Contents
 
@@ -16,20 +19,20 @@ This application creates, reads, and updates employee, role, and departmentinfor
 - [License](#License)
 
 ## Installation
-
-run npm i to install dependencies
-
+```
+npm i
+```
 ## Usage
-
-run node index.js to start
-
+```
+npm start
+```
 ## Contributing
 
 Contact me at one of the links below if you would like to contribute!
 
 ## Tests
 
-no testing instructions specified
+No tests specified currently
 
 ## Questions
 
@@ -39,10 +42,7 @@ GitHub: [comatosino](https://github.com/comatosino)
 
 Email: adamsiii.robert@gmail.com
 
-
-
 ## License
     
 This project is covered under the [MIT](https://opensource.org/licenses/MIT) license.
     
-
