@@ -109,19 +109,13 @@ const addDepartment = async () => {
         message: 'What is the name of the new department?',
     }]);
 
-    // for consistency across other functions, save value to obj 
+    // save value to obj for placeholer
     values = {
         name: newDept.name
     }
 
-    // build query
-    const query = `
-    INSERT INTO department 
-            SET ?
-    `;
-    
     //query db
-    connection.query(query, values, (err, res) => {
+    connection.query("INSERT INTO department SET ?", values, (err, res) => {
         if (err) throw err;
         mainMenu();
     });
@@ -159,7 +153,7 @@ const addRole = async () => {
             },
         ]);
 
-        // save user responses
+        // save user responses to object for placeholder
         const values = {
             title: newRole.roleTitle,
             salary: newRole.roleSalary,
