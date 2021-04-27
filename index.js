@@ -15,12 +15,7 @@ connection.connect((err) => {
     console.log(`connected as id ${connection.threadId}`);
     mainMenu();
 
-    // addRole({ // testing
-    //     /*SET*/
-    //     title: "Quality Manager",
-    //     salary: 110000,
-    //     department_id: 5,
-    // });
+
 
     // addEmployee([{ // testing
     //     /*SET*/
@@ -43,7 +38,7 @@ connection.connect((err) => {
 
 const readDepartments = () => {
     const query = `
-    SELECT name 
+    SELECT name AS Name
       FROM department
     `;
 
@@ -132,13 +127,49 @@ const addDepartment = async () => {
     });
 };
 
-const addRole = (input) => {
-    const query = `
-    INSERT INTO role
-            SET ?
-    `;
-    connection.query(query, input, (err, res) => {
+const addRole = async () => {
+
+    connection.query("SELECT id, name FROM department", async (err, deptList) => {
         if (err) throw err;
+
+        // create object from query results that follow {department name: department id}
+        const deptObj = {};
+        for (let i = 0; i < deptList.length; i++) {
+            const row = deptList[i];
+            deptObj[row.name] = row.id;
+        }
+
+        // get dept, name, salary of new role from user
+        const newRole = await inquirer.prompt([
+            {
+            name: 'roleDept',
+            type: 'list',
+            message: 'What department does this role belong to?',
+            choices: Object.keys(deptObj)
+            },
+            {
+            name: 'roleTitle',
+            type: 'input',
+            message: 'What is the title of the new role?',
+            },
+            {
+            name: 'roleSalary',
+            type: 'input',
+            message: 'What is the salary of the new role?',
+            },
+        ]);
+
+        // save user responses
+        const values = {
+            title: newRole.roleTitle,
+            salary: newRole.roleSalary,
+            department_id: deptObj[newRole.roleDept],
+        }
+
+        connection.query("INSERT INTO role SET ?", values, (err, res) => {
+            if (err) throw err;
+            mainMenu();
+        });
     });
 };
 
@@ -194,7 +225,7 @@ async function mainMenu() {
             addDepartment();
             break;
         case "Add a role":
-            connection.end();
+            addRole();
             break;
         case "Add an employee":
             connection.end();
