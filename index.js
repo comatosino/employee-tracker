@@ -14,6 +14,7 @@ connection.connect((err) => {
     mainMenu();
 });
 
+// prints all departments to console
 const readDepartments = () => {
     const query = `
     SELECT name AS Name
@@ -29,6 +30,7 @@ const readDepartments = () => {
     });
 };
 
+// prints all roles to console
 const readRoles = () => {
     const query = `
       SELECT title AS Title, 
@@ -52,6 +54,7 @@ const readRoles = () => {
     });
 };
 
+// prints all employees to console
 const readEmployees = () => {
     const query = `
        SELECT e.id AS 'Employee ID', 
@@ -78,6 +81,7 @@ const readEmployees = () => {
     });
 };
 
+// creates new department and adds it to department table
 const addDepartment = async () => {
 
     // get name of new dept from user
@@ -99,6 +103,7 @@ const addDepartment = async () => {
     });
 };
 
+// creates a new role and adds it to role table
 const addRole = () => {
 
     connection.query("SELECT id, name FROM department", async (err, deptList) => {
@@ -146,6 +151,7 @@ const addRole = () => {
     });
 };
 
+// creates a new employee and adds it to employee table
 const addEmployee = () => {
 
     // query list of roles to retrieve id and title
@@ -214,6 +220,7 @@ const addEmployee = () => {
     });
 };
 
+// changes an existing employee's role
 const updateRole = () => {
     
     // need to get emps
@@ -269,6 +276,7 @@ const updateRole = () => {
     });
 };
 
+// prompts user for action
 async function mainMenu() {
 
     const response = await inquirer.prompt([{
