@@ -3,7 +3,7 @@
 
 ## Description
 
-This application creates and reads and updates employee, role, and department information in a database.
+This application creates, reads, and updates employee, role, and department information in a database.
 
 Click the gif below to see a video demo!
 
