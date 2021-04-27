@@ -20,7 +20,7 @@ CREATE TABLE employee (
 	id INTEGER AUTO_INCREMENT,
 	first_name VARCHAR(30) NOT NULL,
 	last_name VARCHAR(30) NOT NULL,
-	role_id INTEGER(10) NOT NULL,
+	role_id INTEGER(10),
 	manager_id INTEGER(10),
 	PRIMARY KEY (id)
 );
@@ -52,7 +52,7 @@ INSERT INTO employee
 VALUES 
 ("John", "Doe", 1, 3),
 ("Mike", "Chan", 2, 1),
-("Ashley", "Rodriguez", 2, NULL),
+("Ashley", "Rodriguez", 3, NULL),
 ("Kevin", "Tupik", 4, 3),
 ("Malia", "Brown", 5, NULL),
 ("Sarah", "Lourd", 6, NULL),
