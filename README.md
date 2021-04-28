@@ -30,7 +30,7 @@ npm start
 
 Contact me at one of the links below if you would like to contribute!
 
-## Tests
+## Testing
 
 No tests specified currently
 
