@@ -3,7 +3,7 @@
 
 ## Description
 
-This application creates, reads, and updates employee, role, and department information in a database.
+This application utilizes MySql and Inquirer to read and update employee, role, and department information in a database.
 
 Click the gif below to see a video demo!
 
