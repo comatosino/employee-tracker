@@ -13,7 +13,7 @@ const ADD_EMPLOYEE = 'ADD_EMPLOYEE';
 const UPDATE_EMPLOYEE_ROLE = 'UPDATE_EMPLOYEE_ROLE';
 
 // quit /////////////////////////////////////////////////////////////////////
-QUIT = 'QUIT';
+EXIT = 'EXIT';
 
 module.exports = {
   VIEW_ALL_DEPARTMENTS,
@@ -24,4 +24,5 @@ module.exports = {
   VIEW_ALL_EMPLOYEES,
   ADD_EMPLOYEE,
   UPDATE_EMPLOYEE_ROLE,
+  EXIT,
 };
