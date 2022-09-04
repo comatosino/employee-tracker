@@ -24,7 +24,7 @@ const deleteDepartment = () => {
     .getAllDepartments()
     .then(getChoices)
     .then((choices) =>
-      prompt([
+      io.prompt([
         {
           name: 'id',
           message: 'Which department would you like to delete?',
