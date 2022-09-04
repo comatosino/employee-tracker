@@ -3,10 +3,13 @@ require('console.table');
 
 const { prompt, Separator } = require('inquirer');
 
+const db = require('./db');
+
 const {
   VIEW_ALL_DEPARTMENTS,
   ADD_DEPARTMENT,
   DELETE_DEPARTMENT,
+  EXIT,
 } = require('./io/constants');
 
 const {
@@ -15,7 +18,16 @@ const {
   deleteDepartment,
 } = require('./io/handlers');
 
-const db = require('./db');
+const loop = () => true;
+
+const check = (loop) => {
+  if (loop) main();
+  else exit();
+};
+
+const exit = () => {
+  db.end(() => console.log('exiting application...\ngoodbye!'));
+};
 
 const main = () => {
   prompt([
@@ -37,10 +49,10 @@ const main = () => {
           name: 'Delete a department',
           value: DELETE_DEPARTMENT,
         },
-        new Separator('--- Quit ---'),
+        new Separator('--- Exit ---'),
         {
-          name: 'Quit',
-          value: QUIT,
+          name: 'Exit',
+          value: EXIT,
         },
       ],
     },
@@ -48,19 +60,19 @@ const main = () => {
     .then(({ response }) => {
       switch (response) {
         case VIEW_ALL_DEPARTMENTS:
-          return viewAllDepartments();
+          return viewAllDepartments().then(loop);
 
         case ADD_DEPARTMENT:
-          return addDepartment();
+          return addDepartment().then(loop);
 
         case DELETE_DEPARTMENT:
-          return deleteDepartment();
+          return deleteDepartment().then(loop);
 
         default:
-          return db.end(() => console.log('exiting application...\ngoodbye!'));
+          return Promise.resolve(false);
       }
     })
-    .then(main)
+    .then(check)
     .catch((error) => db.end(() => console.error(error.message)));
 };
 
