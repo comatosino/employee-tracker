@@ -13,7 +13,7 @@ class DB {
   getAllDepartments() {
     return this.connection.promise().query(
       `
-      SELECT id, name FROM departments
+      SELECT id, name FROM department
       `
     );
   }
@@ -21,7 +21,7 @@ class DB {
   addDepartment(department) {
     return this.connection.promise().query(
       `
-      INSERT INTO departments SET ?
+      INSERT INTO department SET ?
       `,
       department
     );
@@ -30,7 +30,7 @@ class DB {
   deleteDepartment(id) {
     return this.connection.promise().query(
       `
-      DELETE FROM departments WHERE id = ?
+      DELETE FROM department WHERE id = ?
       `,
       id
     );
@@ -39,7 +39,7 @@ class DB {
   getAllRoles() {
     return this.connection.promise().query(
       `
-      SELECT id, title, salary FROM roles
+      SELECT id, title, salary FROM role
       `
     );
   }
@@ -47,7 +47,7 @@ class DB {
   addRole(role) {
     return this.connection.promise().query(
       `
-      INSERT INTO roles SET ?
+      INSERT INTO role SET ?
       `,
       role
     );
@@ -56,7 +56,7 @@ class DB {
   updateRoleSalary(id, salary) {
     return this.connection.promise().query(
       `
-      UPDATE roles SET ? WHERE ?
+      UPDATE role SET ? WHERE ?
       `,
       [{ salary }, { id }]
     );
@@ -65,9 +65,38 @@ class DB {
   deleteRole(id) {
     return this.connection.promise().query(
       `
-      DELETE FROM roles WHERE id = ?
+      DELETE FROM role WHERE id = ?
       `,
       id
+    );
+  }
+
+  getAllEmployees() {
+    return this.connection.promise().query(
+      `
+      SELECT id, CONCAT(first_name, ' ', last_name) AS name
+      FROM employee
+      `
+    );
+  }
+
+  viewAllEmployees() {
+    return this.connection.promise().query(
+      `
+      SELECT e.id,
+             CONCAT(e.first_name, ' ', e.last_name) AS name,
+             role.title AS title,
+             department.name AS 'department',
+             role.salary AS salary,
+             CONCAT(m.first_name, ' ', m.last_name) AS manager
+      FROM employee e
+      LEFT JOIN role
+        ON e.role_id = role.id
+      LEFT JOIN department
+        ON role.department_id = department.id
+      LEFT JOIN employee m
+        ON e.manager_id = m.id;
+      `
     );
   }
 }

@@ -104,4 +104,8 @@ module.exports = {
       )
       .then(({ id }) => db.deleteRole(id));
   },
+
+  viewAllEmployees: () => {
+    return db.viewAllEmployees().then(([rows]) => console.table(rows));
+  },
 };
