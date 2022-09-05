@@ -10,6 +10,7 @@ const {
   ADD_DEPARTMENT,
   DELETE_DEPARTMENT,
   VIEW_ALL_ROLES,
+  ADD_ROLE,
   EXIT,
 } = require('./io/constants');
 
@@ -18,14 +19,10 @@ const {
   addDepartment,
   deleteDepartment,
   viewAllRoles,
+  addRole,
 } = require('./io/handlers');
 
 const loop = () => true;
-
-const check = (loop) => {
-  if (loop) main();
-  else exit();
-};
 
 const exit = () => {
   db.end(() => console.log('exiting application...\ngoodbye!'));
@@ -56,6 +53,10 @@ const main = () => {
           name: 'View all roles',
           value: VIEW_ALL_ROLES,
         },
+        {
+          name: 'Add a role',
+          value: ADD_ROLE,
+        },
         new Separator('--- Exit ---'),
         {
           name: 'Exit',
@@ -78,11 +79,17 @@ const main = () => {
         case VIEW_ALL_ROLES:
           return viewAllRoles().then(loop);
 
+        case ADD_ROLE:
+          return addRole().then(loop);
+
         default:
           return Promise.resolve(false);
       }
     })
-    .then(check)
+    .then((loop) => {
+      if (loop) main();
+      else exit();
+    })
     .catch((error) => db.end(() => console.error(error.message)));
 };
 
