@@ -1,7 +1,7 @@
 require('dotenv').config();
 require('console.table');
 
-const { prompt, Separator } = require('inquirer');
+const io = require('inquirer');
 
 const db = require('./db');
 
@@ -12,6 +12,7 @@ const {
   VIEW_ALL_ROLES,
   ADD_ROLE,
   UPDATE_ROLE_SALARY,
+  DELETE_ROLE,
   EXIT,
 } = require('./io/constants');
 
@@ -22,18 +23,19 @@ const {
   viewAllRoles,
   addRole,
   updateRoleSalary,
+  deleteRole,
 } = require('./io/handlers');
 
 const { loop, exit } = require('./io/helpers');
 
 const main = () => {
-  prompt([
+  io.prompt([
     {
       type: 'list',
       name: 'response',
       message: 'What would you like to do?',
       choices: [
-        new Separator('--- Departments ---'),
+        new io.Separator('--- Departments ---'),
 
         {
           name: 'View all departments',
@@ -48,7 +50,7 @@ const main = () => {
           value: DELETE_DEPARTMENT,
         },
 
-        new Separator('--- Roles ---'),
+        new io.Separator('--- Roles ---'),
 
         {
           name: 'View all roles',
@@ -62,8 +64,12 @@ const main = () => {
           name: 'Update role salary',
           value: UPDATE_ROLE_SALARY,
         },
+        {
+          name: 'Delete role',
+          value: DELETE_ROLE,
+        },
 
-        new Separator('--- Exit ---'),
+        new io.Separator('--- Exit ---'),
 
         {
           name: 'Exit',
@@ -91,6 +97,9 @@ const main = () => {
 
         case UPDATE_ROLE_SALARY:
           return updateRoleSalary().then(loop);
+
+        case DELETE_ROLE:
+          return deleteRole().then(loop);
 
         default:
           return Promise.resolve(false);
