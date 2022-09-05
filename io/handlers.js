@@ -4,45 +4,67 @@ const db = require('../db');
 
 const { getChoices } = require('./helpers');
 
-const viewAllDepartments = () => {
-  return db.getAllDepartments().then(([rows]) => console.table(rows));
-};
+module.exports = {
+  viewAllDepartments: () => {
+    return db.getAllDepartments().then(([rows]) => console.table(rows));
+  },
 
-const addDepartment = () => {
-  return io
-    .prompt([
-      {
-        name: 'name',
-        message: 'What is the new department called?',
-      },
-    ])
-    .then((department) => db.addDepartment(department));
-};
-
-const deleteDepartment = () => {
-  return db
-    .getAllDepartments()
-    .then(getChoices)
-    .then((choices) =>
-      io.prompt([
+  addDepartment: () => {
+    return io
+      .prompt([
         {
-          name: 'id',
-          message: 'Which department would you like to delete?',
-          type: 'list',
-          choices,
+          name: 'name',
+          message: 'What is the new department called?',
         },
       ])
-    )
-    .then(({ id }) => db.deleteDepartment(id));
-};
+      .then((department) => db.addDepartment(department));
+  },
 
-const viewAllRoles = () => {
-  return db.getAllRoles().then(([rows]) => console.table(rows));
-};
+  deleteDepartment: () => {
+    return db
+      .getAllDepartments()
+      .then(getChoices)
+      .then((choices) =>
+        io.prompt([
+          {
+            name: 'id',
+            message: 'Which department would you like to delete?',
+            type: 'list',
+            choices,
+          },
+        ])
+      )
+      .then(({ id }) => db.deleteDepartment(id));
+  },
 
-module.exports = {
-  viewAllDepartments,
-  addDepartment,
-  deleteDepartment,
-  viewAllRoles,
+  viewAllRoles: () => {
+    return db.getAllRoles().then(([rows]) => console.table(rows));
+  },
+
+  addRole: () => {
+    //grab department choices
+    //then prompt for title,salary,department_id
+    return db
+      .getAllDepartments()
+      .then(getChoices)
+      .then((choices) =>
+        io.prompt([
+          {
+            name: 'title',
+            message: 'What is the title of the new role?',
+          },
+          {
+            name: 'salary',
+            message: "What is this role's salary?",
+          },
+          {
+            name: 'department_id',
+            message: 'Which department does this role belong to?',
+            type: 'list',
+            choices,
+          },
+        ])
+      )
+      .then((role) => db.addRole(role));
+  },
 };
