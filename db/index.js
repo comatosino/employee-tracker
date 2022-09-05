@@ -13,7 +13,7 @@ class DB {
   getAllDepartments() {
     return this.connection.promise().query(
       `
-      SELECT * FROM departments
+      SELECT id, name FROM departments
       `
     );
   }
@@ -33,6 +33,14 @@ class DB {
       DELETE FROM departments WHERE id = ?
       `,
       id
+    );
+  }
+
+  getAllRoles() {
+    return this.connection.promise().query(
+      `
+      SELECT id, title, salary FROM roles
+      `
     );
   }
 }
