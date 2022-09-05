@@ -13,6 +13,7 @@ const {
   ADD_ROLE,
   UPDATE_ROLE_SALARY,
   DELETE_ROLE,
+  VIEW_ALL_EMPLOYEES,
   EXIT,
 } = require('./io/constants');
 
@@ -24,6 +25,7 @@ const {
   addRole,
   updateRoleSalary,
   deleteRole,
+  viewAllEmployees,
 } = require('./io/handlers');
 
 const { loop, exit } = require('./io/helpers');
@@ -69,6 +71,13 @@ const main = () => {
           value: DELETE_ROLE,
         },
 
+        new io.Separator('--- Employees ---'),
+
+        {
+          name: 'View all employees',
+          value: VIEW_ALL_EMPLOYEES,
+        },
+
         new io.Separator('--- Exit ---'),
 
         {
@@ -100,6 +109,9 @@ const main = () => {
 
         case DELETE_ROLE:
           return deleteRole().then(loop);
+
+        case VIEW_ALL_EMPLOYEES:
+          return viewAllEmployees().then(loop);
 
         default:
           return Promise.resolve(false);
