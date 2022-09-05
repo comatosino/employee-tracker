@@ -36,4 +36,13 @@ const deleteDepartment = () => {
     .then(({ id }) => db.deleteDepartment(id));
 };
 
-module.exports = { viewAllDepartments, addDepartment, deleteDepartment };
+const viewAllRoles = () => {
+  return db.getAllRoles().then(([rows]) => console.table(rows));
+};
+
+module.exports = {
+  viewAllDepartments,
+  addDepartment,
+  deleteDepartment,
+  viewAllRoles,
+};

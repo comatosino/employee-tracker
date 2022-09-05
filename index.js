@@ -9,6 +9,7 @@ const {
   VIEW_ALL_DEPARTMENTS,
   ADD_DEPARTMENT,
   DELETE_DEPARTMENT,
+  VIEW_ALL_ROLES,
   EXIT,
 } = require('./io/constants');
 
@@ -16,6 +17,7 @@ const {
   viewAllDepartments,
   addDepartment,
   deleteDepartment,
+  viewAllRoles,
 } = require('./io/handlers');
 
 const loop = () => true;
@@ -49,6 +51,11 @@ const main = () => {
           name: 'Delete a department',
           value: DELETE_DEPARTMENT,
         },
+        new Separator('--- Roles ---'),
+        {
+          name: 'View all roles',
+          value: VIEW_ALL_ROLES,
+        },
         new Separator('--- Exit ---'),
         {
           name: 'Exit',
@@ -67,6 +74,9 @@ const main = () => {
 
         case DELETE_DEPARTMENT:
           return deleteDepartment().then(loop);
+
+        case VIEW_ALL_ROLES:
+          return viewAllRoles().then(loop);
 
         default:
           return Promise.resolve(false);
