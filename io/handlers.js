@@ -67,4 +67,25 @@ module.exports = {
       )
       .then((role) => db.addRole(role));
   },
+  updateRoleSalary: () => {
+    // grab list of roles
+    return db
+      .getAllRoles()
+      .then(getChoices)
+      .then((choices) =>
+        io.prompt([
+          {
+            name: 'id',
+            message: 'Which role would you like to update?',
+            type: 'list',
+            choices,
+          },
+          {
+            name: 'salary',
+            message: 'What is the new salary?',
+          },
+        ])
+      )
+      .then(({ id, salary }) => db.updateRoleSalary(id, salary));
+  },
 };
