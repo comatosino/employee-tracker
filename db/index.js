@@ -52,6 +52,15 @@ class DB {
       role
     );
   }
+
+  updateRoleSalary(id, salary) {
+    return this.connection.promise().query(
+      `
+      UPDATE roles SET ? WHERE ?
+      `,
+      [{ salary }, { id }]
+    );
+  }
 }
 
 module.exports = new DB(mysqlConnection);
