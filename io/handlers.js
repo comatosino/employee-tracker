@@ -42,8 +42,6 @@ module.exports = {
   },
 
   addRole: () => {
-    //grab department choices
-    //then prompt for title,salary,department_id
     return db
       .getAllDepartments()
       .then(getChoices)
@@ -67,8 +65,8 @@ module.exports = {
       )
       .then((role) => db.addRole(role));
   },
+
   updateRoleSalary: () => {
-    // grab list of roles
     return db
       .getAllRoles()
       .then(getChoices)
@@ -87,5 +85,23 @@ module.exports = {
         ])
       )
       .then(({ id, salary }) => db.updateRoleSalary(id, salary));
+  },
+
+  deleteRole: () => {
+    return db
+      .getAllRoles()
+      .then(getChoices)
+      .then((choices) =>
+        io.prompt([
+          {
+            name: 'id',
+            message:
+              'Which role should be deleted? \n(Warning: this will also delete any employees with this role)',
+            type: 'list',
+            choices,
+          },
+        ])
+      )
+      .then(({ id }) => db.deleteRole(id));
   },
 };

@@ -61,6 +61,15 @@ class DB {
       [{ salary }, { id }]
     );
   }
+
+  deleteRole(id) {
+    return this.connection.promise().query(
+      `
+      DELETE FROM roles WHERE id = ?
+      `,
+      id
+    );
+  }
 }
 
 module.exports = new DB(mysqlConnection);
