@@ -43,6 +43,15 @@ class DB {
       `
     );
   }
+
+  addRole(role) {
+    return this.connection.promise().query(
+      `
+      INSERT INTO roles SET ?
+      `,
+      role
+    );
+  }
 }
 
 module.exports = new DB(mysqlConnection);
