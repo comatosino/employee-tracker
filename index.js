@@ -11,6 +11,7 @@ const {
   DELETE_DEPARTMENT,
   VIEW_ALL_ROLES,
   ADD_ROLE,
+  UPDATE_ROLE_SALARY,
   EXIT,
 } = require('./io/constants');
 
@@ -20,13 +21,10 @@ const {
   deleteDepartment,
   viewAllRoles,
   addRole,
+  updateRoleSalary,
 } = require('./io/handlers');
 
-const loop = () => true;
-
-const exit = () => {
-  db.end(() => console.log('exiting application...\ngoodbye!'));
-};
+const { loop, exit } = require('./io/helpers');
 
 const main = () => {
   prompt([
@@ -36,6 +34,7 @@ const main = () => {
       message: 'What would you like to do?',
       choices: [
         new Separator('--- Departments ---'),
+
         {
           name: 'View all departments',
           value: VIEW_ALL_DEPARTMENTS,
@@ -48,7 +47,9 @@ const main = () => {
           name: 'Delete a department',
           value: DELETE_DEPARTMENT,
         },
+
         new Separator('--- Roles ---'),
+
         {
           name: 'View all roles',
           value: VIEW_ALL_ROLES,
@@ -57,7 +58,13 @@ const main = () => {
           name: 'Add a role',
           value: ADD_ROLE,
         },
+        {
+          name: 'Update role salary',
+          value: UPDATE_ROLE_SALARY,
+        },
+
         new Separator('--- Exit ---'),
+
         {
           name: 'Exit',
           value: EXIT,
@@ -81,6 +88,9 @@ const main = () => {
 
         case ADD_ROLE:
           return addRole().then(loop);
+
+        case UPDATE_ROLE_SALARY:
+          return updateRoleSalary().then(loop);
 
         default:
           return Promise.resolve(false);
