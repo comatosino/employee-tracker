@@ -1,8 +1,6 @@
 require('dotenv').config();
 require('console.table');
-
 const io = require('inquirer');
-
 const db = require('./db');
 
 const {
@@ -14,7 +12,6 @@ const {
   UPDATE_ROLE_SALARY,
   DELETE_ROLE,
   VIEW_ALL_EMPLOYEES,
-  EXIT,
 } = require('./io/constants');
 
 const {
@@ -28,65 +25,11 @@ const {
   viewAllEmployees,
 } = require('./io/handlers');
 
+const { MAIN_MENU } = require('./io/prompts');
 const { loop, exit } = require('./io/helpers');
 
 const main = () => {
-  io.prompt([
-    {
-      type: 'list',
-      name: 'response',
-      message: 'What would you like to do?',
-      choices: [
-        new io.Separator('--- Departments ---'),
-
-        {
-          name: 'View all departments',
-          value: VIEW_ALL_DEPARTMENTS,
-        },
-        {
-          name: 'Add a department',
-          value: ADD_DEPARTMENT,
-        },
-        {
-          name: 'Delete a department',
-          value: DELETE_DEPARTMENT,
-        },
-
-        new io.Separator('--- Roles ---'),
-
-        {
-          name: 'View all roles',
-          value: VIEW_ALL_ROLES,
-        },
-        {
-          name: 'Add a role',
-          value: ADD_ROLE,
-        },
-        {
-          name: 'Update role salary',
-          value: UPDATE_ROLE_SALARY,
-        },
-        {
-          name: 'Delete role',
-          value: DELETE_ROLE,
-        },
-
-        new io.Separator('--- Employees ---'),
-
-        {
-          name: 'View all employees',
-          value: VIEW_ALL_EMPLOYEES,
-        },
-
-        new io.Separator('--- Exit ---'),
-
-        {
-          name: 'Exit',
-          value: EXIT,
-        },
-      ],
-    },
-  ])
+  io.prompt(MAIN_MENU)
     .then(({ response }) => {
       switch (response) {
         case VIEW_ALL_DEPARTMENTS:
@@ -114,13 +57,10 @@ const main = () => {
           return viewAllEmployees().then(loop);
 
         default:
-          return Promise.resolve(false);
+          return false;
       }
     })
-    .then((loop) => {
-      if (loop) main();
-      else exit();
-    })
+    .then((again) => (again ? main() : exit()))
     .catch((error) => db.end(() => console.error(error.message)));
 };
 
