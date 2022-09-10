@@ -7,9 +7,10 @@ module.exports = {
     db.end(() => console.log('exiting application...\ngoodbye!'));
   },
 
-  getChoices: ([rows]) =>
-    rows.map((row) => ({
+  getChoices: ([rows]) => {
+    return rows.map((row) => ({
       name: row.name || row.title,
       value: row.id,
-    })),
+    }));
+  },
 };
