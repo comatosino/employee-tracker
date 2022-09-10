@@ -1,7 +1,5 @@
 const io = require('inquirer');
-
 const db = require('../db');
-
 const { getChoices } = require('./helpers');
 
 module.exports = {
