@@ -11,6 +11,7 @@ const {
   VIEW_ALL_EMPLOYEES,
   ADD_EMPLOYEE,
   EXIT,
+  DELETE_EMPLOYEE,
 } = require('./constants');
 
 module.exports = {
@@ -63,6 +64,10 @@ module.exports = {
         {
           name: 'Add an employee',
           value: ADD_EMPLOYEE,
+        },
+        {
+          name: 'Delete an employee',
+          value: DELETE_EMPLOYEE,
         },
 
         new io.Separator('--- Exit ---'),
