@@ -153,13 +153,26 @@ module.exports = {
   },
 
   updateEmployeeRole: () => {
-    // need list of employees
-    // need list of roles
-    // prompt which employee
-    // prompt which role
-
-    console.log('UPDATE_EMPLOYEE_ROLE');
-    return loop();
+    return Promise.all([db.getAllEmployees(), db.getAllRoles()])
+      .then(([employees, roles]) => [getChoices(employees), getChoices(roles)])
+      .then(([employeeChoices, roleChoices]) =>
+        io.prompt([
+          {
+            name: 'id',
+            message: 'Which employee should be updated?',
+            type: 'list',
+            choices: employeeChoices,
+          },
+          {
+            name: 'role_id',
+            message: "What is the employee's new role?",
+            type: 'list',
+            choices: roleChoices,
+          },
+        ])
+      )
+      .then(({ id, role_id }) => db.updateEmployeeRole(id, role_id))
+      .then(loop);
   },
 
   deleteEmployee: () => {
