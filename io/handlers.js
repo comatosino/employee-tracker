@@ -1,10 +1,13 @@
 const io = require('inquirer');
 const db = require('../db');
-const { getChoices } = require('./helpers');
+const { getChoices, loop } = require('./helpers');
 
 module.exports = {
   viewAllDepartments: () => {
-    return db.getAllDepartments().then(([rows]) => console.table(rows));
+    return db
+      .getAllDepartments()
+      .then(([rows]) => console.table(rows))
+      .then(loop);
   },
 
   addDepartment: () => {
@@ -15,7 +18,8 @@ module.exports = {
           message: 'What is the new department called?',
         },
       ])
-      .then((department) => db.addDepartment(department));
+      .then((department) => db.addDepartment(department))
+      .then(loop);
   },
 
   deleteDepartment: () => {
@@ -32,11 +36,15 @@ module.exports = {
           },
         ])
       )
-      .then(({ id }) => db.deleteDepartment(id));
+      .then(({ id }) => db.deleteDepartment(id))
+      .then(loop);
   },
 
   viewAllRoles: () => {
-    return db.getAllRoles().then(([rows]) => console.table(rows));
+    return db
+      .getAllRoles()
+      .then(([rows]) => console.table(rows))
+      .then(loop);
   },
 
   addRole: () => {
@@ -61,7 +69,8 @@ module.exports = {
           },
         ])
       )
-      .then((role) => db.addRole(role));
+      .then((role) => db.addRole(role))
+      .then(loop);
   },
 
   updateRoleSalary: () => {
@@ -82,7 +91,8 @@ module.exports = {
           },
         ])
       )
-      .then(({ id, salary }) => db.updateRoleSalary(id, salary));
+      .then(({ id, salary }) => db.updateRoleSalary(id, salary))
+      .then(loop);
   },
 
   deleteRole: () => {
@@ -100,10 +110,14 @@ module.exports = {
           },
         ])
       )
-      .then(({ id }) => db.deleteRole(id));
+      .then(({ id }) => db.deleteRole(id))
+      .then(loop);
   },
 
   viewAllEmployees: () => {
-    return db.viewAllEmployees().then(([rows]) => console.table(rows));
+    return db
+      .viewAllEmployees()
+      .then(([rows]) => console.table(rows))
+      .then(loop);
   },
 };

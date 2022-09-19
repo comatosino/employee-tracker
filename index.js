@@ -26,35 +26,35 @@ const {
 } = require('./io/handlers');
 
 const { MAIN_MENU } = require('./io/prompts');
-const { loop, exit } = require('./io/helpers');
+const { exit } = require('./io/helpers');
 
 const main = () => {
   io.prompt(MAIN_MENU)
     .then(({ response }) => {
       switch (response) {
         case VIEW_ALL_DEPARTMENTS:
-          return viewAllDepartments().then(loop);
+          return viewAllDepartments();
 
         case ADD_DEPARTMENT:
-          return addDepartment().then(loop);
+          return addDepartment();
 
         case DELETE_DEPARTMENT:
-          return deleteDepartment().then(loop);
+          return deleteDepartment();
 
         case VIEW_ALL_ROLES:
-          return viewAllRoles().then(loop);
+          return viewAllRoles();
 
         case ADD_ROLE:
-          return addRole().then(loop);
+          return addRole();
 
         case UPDATE_ROLE_SALARY:
-          return updateRoleSalary().then(loop);
+          return updateRoleSalary();
 
         case DELETE_ROLE:
-          return deleteRole().then(loop);
+          return deleteRole();
 
         case VIEW_ALL_EMPLOYEES:
-          return viewAllEmployees().then(loop);
+          return viewAllEmployees();
 
         default:
           return false;
