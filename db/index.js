@@ -13,7 +13,8 @@ class DB {
   getAllDepartments() {
     return this.connection.promise().query(
       `
-      SELECT id, name FROM department
+      SELECT id, name
+      FROM department
       `
     );
   }
@@ -21,7 +22,8 @@ class DB {
   addDepartment(department) {
     return this.connection.promise().query(
       `
-      INSERT INTO department SET ?
+      INSERT INTO department
+      SET ?
       `,
       department
     );
@@ -30,7 +32,8 @@ class DB {
   deleteDepartment(id) {
     return this.connection.promise().query(
       `
-      DELETE FROM department WHERE id = ?
+      DELETE FROM department
+      WHERE id = ?
       `,
       id
     );
@@ -53,7 +56,8 @@ class DB {
   addRole(role) {
     return this.connection.promise().query(
       `
-      INSERT INTO role SET ?
+      INSERT INTO role
+      SET ?
       `,
       role
     );
@@ -63,7 +67,8 @@ class DB {
     return this.connection.promise().query(
       `
       UPDATE role
-      SET ? WHERE ?
+      SET ?
+      WHERE ?
       `,
       [{ salary }, { id }]
     );
@@ -105,6 +110,20 @@ class DB {
       LEFT JOIN employee m
       ON e.manager_id = m.id;
       `
+    );
+  }
+
+  getRolesAndEmployees() {
+    return Promise.all([this.getAllRoles(), this.viewAllEmployees()]);
+  }
+
+  addEmployee(employee) {
+    return this.connection.promise().query(
+      `
+      INSERT INTO employee
+      SET ?
+      `,
+      employee
     );
   }
 }
