@@ -120,4 +120,37 @@ module.exports = {
       .then(([rows]) => console.table(rows))
       .then(loop);
   },
+
+  addEmployee: () => {
+    console.log('add employee');
+    return db
+      .getRolesAndEmployees()
+      .then(([roles, employees]) => [getChoices(roles), getChoices(employees)])
+      .then(([roleChoices, managerChoices]) =>
+        io.prompt([
+          {
+            name: 'first_name',
+            message: "Enter the employee's first name",
+          },
+          {
+            name: 'last_name',
+            message: "Enter the employee's last name",
+          },
+          {
+            name: 'role_id',
+            message: "What is the employee's role?",
+            type: 'list',
+            choices: roleChoices,
+          },
+          {
+            name: 'manager_id',
+            message: "Who is the employee's manager?",
+            type: 'list',
+            choices: managerChoices,
+          },
+        ])
+      )
+      .then((employee) => db.addEmployee(employee))
+      .then(loop);
+  },
 };
