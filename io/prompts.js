@@ -9,7 +9,8 @@ const {
   UPDATE_ROLE_SALARY,
   DELETE_ROLE,
   VIEW_ALL_EMPLOYEES,
-  EXIT
+  ADD_EMPLOYEE,
+  EXIT,
 } = require('./constants');
 
 module.exports = {
@@ -58,6 +59,10 @@ module.exports = {
         {
           name: 'View all employees',
           value: VIEW_ALL_EMPLOYEES,
+        },
+        {
+          name: 'Add an employee',
+          value: ADD_EMPLOYEE,
         },
 
         new io.Separator('--- Exit ---'),
