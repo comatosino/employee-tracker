@@ -6,8 +6,8 @@ class DB {
   }
 
   end(cb) {
-    if (!cb) this.connection.end(() => console.log('db connection closed'));
-    return this.connection.end(cb);
+    if (cb) return this.connection.end(cb);
+    return this.connection.end(() => console.log('db connection closed'));
   }
 
   getAllDepartments() {
@@ -39,7 +39,13 @@ class DB {
   getAllRoles() {
     return this.connection.promise().query(
       `
-      SELECT id, title, salary FROM role
+      SELECT role.id,
+             role.title,
+             role.salary,
+             department.name AS department
+      FROM role
+      LEFT JOIN department
+      ON role.department_id = department.id;
       `
     );
   }
@@ -56,7 +62,8 @@ class DB {
   updateRoleSalary(id, salary) {
     return this.connection.promise().query(
       `
-      UPDATE role SET ? WHERE ?
+      UPDATE role
+      SET ? WHERE ?
       `,
       [{ salary }, { id }]
     );
@@ -65,7 +72,8 @@ class DB {
   deleteRole(id) {
     return this.connection.promise().query(
       `
-      DELETE FROM role WHERE id = ?
+      DELETE FROM role
+      WHERE id = ?
       `,
       id
     );
@@ -91,11 +99,11 @@ class DB {
              CONCAT(m.first_name, ' ', m.last_name) AS manager
       FROM employee e
       LEFT JOIN role
-        ON e.role_id = role.id
+      ON e.role_id = role.id
       LEFT JOIN department
-        ON role.department_id = department.id
+      ON role.department_id = department.id
       LEFT JOIN employee m
-        ON e.manager_id = m.id;
+      ON e.manager_id = m.id;
       `
     );
   }
