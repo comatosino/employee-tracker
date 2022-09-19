@@ -12,6 +12,7 @@ const {
   UPDATE_ROLE_SALARY,
   DELETE_ROLE,
   VIEW_ALL_EMPLOYEES,
+  ADD_EMPLOYEE,
 } = require('./io/constants');
 
 const {
@@ -23,6 +24,7 @@ const {
   updateRoleSalary,
   deleteRole,
   viewAllEmployees,
+  addEmployee,
 } = require('./io/handlers');
 
 const { MAIN_MENU } = require('./io/prompts');
@@ -55,6 +57,9 @@ const main = () => {
 
         case VIEW_ALL_EMPLOYEES:
           return viewAllEmployees();
+
+        case ADD_EMPLOYEE:
+          return addEmployee();
 
         default:
           return false;
