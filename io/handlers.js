@@ -153,4 +153,22 @@ module.exports = {
       .then((employee) => db.addEmployee(employee))
       .then(loop);
   },
+
+  deleteEmployee: () => {
+    return db
+      .getAllEmployees()
+      .then(getChoices)
+      .then((choices) =>
+        io.prompt([
+          {
+            name: 'id',
+            message: 'Which employee should be deleted?',
+            type: 'list',
+            choices,
+          },
+        ])
+      )
+      .then(({ id }) => db.deleteEmployee(id))
+      .then(loop);
+  },
 };
