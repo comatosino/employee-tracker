@@ -113,10 +113,6 @@ class DB {
     );
   }
 
-  getRolesAndEmployees() {
-    return Promise.all([this.getAllRoles(), this.viewAllEmployees()]);
-  }
-
   addEmployee(employee) {
     return this.connection.promise().query(
       `
@@ -127,8 +123,11 @@ class DB {
     );
   }
 
+  updateEmployeeRole(id, role_id) {
+
+  }
+
   deleteEmployee(id) {
-    console.log(id);
     return this.connection.promise().query(
       `
       DELETE FROM employee
