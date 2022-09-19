@@ -124,7 +124,14 @@ class DB {
   }
 
   updateEmployeeRole(id, role_id) {
-
+    return this.connection.promise().query(
+      `
+      UPDATE employee
+      SET ?
+      WHERE ?
+      `,
+      [{ role_id }, { id }]
+    );
   }
 
   deleteEmployee(id) {
