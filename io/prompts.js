@@ -1,17 +1,21 @@
 const io = require('inquirer');
 
 const {
+  // departments
   VIEW_ALL_DEPARTMENTS,
   ADD_DEPARTMENT,
   DELETE_DEPARTMENT,
+  // roles
   VIEW_ALL_ROLES,
   ADD_ROLE,
   UPDATE_ROLE_SALARY,
   DELETE_ROLE,
+  // employees
   VIEW_ALL_EMPLOYEES,
   ADD_EMPLOYEE,
-  EXIT,
+  UPDATE_EMPLOYEE_ROLE,
   DELETE_EMPLOYEE,
+  EXIT,
 } = require('./constants');
 
 module.exports = {
@@ -64,6 +68,10 @@ module.exports = {
         {
           name: 'Add an employee',
           value: ADD_EMPLOYEE,
+        },
+        {
+          name: 'Update an employee role',
+          value: UPDATE_EMPLOYEE_ROLE,
         },
         {
           name: 'Delete an employee',

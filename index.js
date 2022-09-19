@@ -13,6 +13,7 @@ const {
   DELETE_ROLE,
   VIEW_ALL_EMPLOYEES,
   ADD_EMPLOYEE,
+  UPDATE_EMPLOYEE_ROLE,
   DELETE_EMPLOYEE,
 } = require('./io/constants');
 
@@ -26,6 +27,7 @@ const {
   deleteRole,
   viewAllEmployees,
   addEmployee,
+  updateEmployeeRole,
   deleteEmployee,
 } = require('./io/handlers');
 
@@ -62,6 +64,9 @@ const main = () => {
 
         case ADD_EMPLOYEE:
           return addEmployee();
+
+        case UPDATE_EMPLOYEE_ROLE:
+          return updateEmployeeRole();
 
         case DELETE_EMPLOYEE:
           return deleteEmployee();

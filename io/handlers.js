@@ -122,9 +122,7 @@ module.exports = {
   },
 
   addEmployee: () => {
-    console.log('add employee');
-    return db
-      .getRolesAndEmployees()
+    return Promise.all([db.getAllRoles(), db.viewAllEmployees()])
       .then(([roles, employees]) => [getChoices(roles), getChoices(employees)])
       .then(([roleChoices, managerChoices]) =>
         io.prompt([
@@ -151,6 +149,29 @@ module.exports = {
         ])
       )
       .then((employee) => db.addEmployee(employee))
+      .then(loop);
+  },
+
+  updateEmployeeRole: () => {
+    return Promise.all([db.getAllEmployees(), db.getAllRoles()])
+      .then(([employees, roles]) => [getChoices(employees), getChoices(roles)])
+      .then(([employeeChoices, roleChoices]) =>
+        io.prompt([
+          {
+            name: 'id',
+            message: 'Which employee should be updated?',
+            type: 'list',
+            choices: employeeChoices,
+          },
+          {
+            name: 'role_id',
+            message: "What is the employee's new role?",
+            type: 'list',
+            choices: roleChoices,
+          },
+        ])
+      )
+      .then(({ id, role_id }) => db.updateEmployeeRole(id, role_id))
       .then(loop);
   },
 
