@@ -175,6 +175,50 @@ module.exports = {
       .then(loop);
   },
 
+  updateEmployeeManager: () => {
+    return db
+      .getAllEmployees()
+      .then(getChoices)
+      .then((employees) =>
+        io
+          .prompt([
+            {
+              name: 'id',
+              message: 'Which employee should be updated?',
+              type: 'list',
+              choices: employees,
+            },
+          ])
+          // nested chain in order to to use id to filter employees
+          .then(({ id }) =>
+            io
+              .prompt([
+                {
+                  name: 'manager_id',
+                  message: "Who is the employee's new manager?",
+                  type: 'list',
+                  // filter out the selected employee and add additional choice
+                  choices: employees
+                    .filter((emp) => emp.value !== id)
+                    .concat([
+                      {
+                        name: 'No manager',
+                        value: null,
+                      },
+                    ]),
+                },
+              ])
+              // return selected employee and manager to the outer chain
+              .then(({ manager_id }) => ({
+                id,
+                manager_id,
+              }))
+          )
+      )
+      .then(({ id, manager_id }) => db.updateEmployeeManager(id, manager_id))
+      .then(loop);
+  },
+
   deleteEmployee: () => {
     return db
       .getAllEmployees()
