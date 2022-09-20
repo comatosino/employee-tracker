@@ -14,6 +14,7 @@ const {
   VIEW_ALL_EMPLOYEES,
   ADD_EMPLOYEE,
   UPDATE_EMPLOYEE_ROLE,
+  UPDATE_EMPLOYEE_MANAGER,
   DELETE_EMPLOYEE,
   EXIT,
 } = require('./constants');
@@ -72,6 +73,10 @@ module.exports = {
         {
           name: 'Update an employee role',
           value: UPDATE_EMPLOYEE_ROLE,
+        },
+        {
+          name: "Update an employee manager",
+          value: UPDATE_EMPLOYEE_MANAGER,
         },
         {
           name: 'Delete an employee',
