@@ -13,6 +13,7 @@ const {
   // employees
   VIEW_ALL_EMPLOYEES,
   VIEW_EMPLOYEES_BY_MANAGER,
+  VIEW_EMPLOYEES_BY_DEPARTMENT,
   ADD_EMPLOYEE,
   UPDATE_EMPLOYEE_ROLE,
   UPDATE_EMPLOYEE_MANAGER,
@@ -70,6 +71,10 @@ module.exports = {
         {
           name: 'View employees by manager',
           value: VIEW_EMPLOYEES_BY_MANAGER,
+        },
+        {
+          name: 'View employees by department',
+          value: VIEW_EMPLOYEES_BY_DEPARTMENT,
         },
         {
           name: 'Add an employee',

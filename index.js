@@ -17,6 +17,7 @@ const {
   UPDATE_EMPLOYEE_ROLE,
   UPDATE_EMPLOYEE_MANAGER,
   DELETE_EMPLOYEE,
+  VIEW_EMPLOYEES_BY_DEPARTMENT,
 } = require('./io/constants');
 
 const {
@@ -33,6 +34,7 @@ const {
   updateEmployeeRole,
   updateEmployeeManager,
   deleteEmployee,
+  viewEmployeesByDepartment,
 } = require('./io/handlers');
 
 const { MAIN_MENU } = require('./io/prompts');
@@ -68,6 +70,9 @@ const main = () => {
 
         case VIEW_EMPLOYEES_BY_MANAGER:
           return viewEmployeesByManager();
+
+        case VIEW_EMPLOYEES_BY_DEPARTMENT:
+          return viewEmployeesByDepartment();
 
         case ADD_EMPLOYEE:
           return addEmployee();

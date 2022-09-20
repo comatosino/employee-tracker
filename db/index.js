@@ -130,6 +130,22 @@ class DB {
     );
   }
 
+  viewEmployeesByDepartment(department_id) {
+    return this.connection.promise().query(
+      `
+      SELECT employee.id,
+             CONCAT(employee.first_name, ' ', employee.last_name) AS name,
+             role.title,
+             role.salary
+      FROM employee
+      LEFT JOIN role ON role.id = employee.role_id
+      LEFT JOIN department ON department.id = role.department_id
+      WHERE department.id = ?;
+      `,
+      department_id
+    );
+  }
+
   addEmployee(employee) {
     return this.connection.promise().query(
       `
