@@ -1,6 +1,7 @@
 module.exports = {
   // departments //////////////////////////////////////////////////////////////
   VIEW_ALL_DEPARTMENTS: 'VIEW_ALL_DEPARTMENTS',
+  VIEW_UTILIZED_DEPARTMENT_BUDGET: 'VIEW_UTILIZED_DEPARTMENT_BUDGET',
   ADD_DEPARTMENT: 'ADD_DEPARTMENT',
   DELETE_DEPARTMENT: 'DELETE_DEPARTMENT',
 

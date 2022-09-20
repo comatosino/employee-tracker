@@ -10,6 +10,13 @@ module.exports = {
       .then(loop);
   },
 
+  viewUtilizedDepartmentBudget: () => {
+    return db
+      .viewDepartmentBudget()
+      .then(([rows]) => console.table(rows))
+      .then(loop);
+  },
+
   addDepartment: () => {
     return io
       .prompt([
