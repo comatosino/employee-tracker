@@ -144,6 +144,25 @@ module.exports = {
       .then(loop);
   },
 
+  viewEmployeesByDepartment: () => {
+    return db
+      .getAllDepartments()
+      .then(getChoices)
+      .then((choices) =>
+        io.prompt([
+          {
+            name: 'department_id',
+            message: 'Please select a department',
+            type: 'list',
+            choices,
+          },
+        ])
+      )
+      .then(({ department_id }) => db.viewEmployeesByDepartment(department_id))
+      .then(([rows]) => console.table(rows))
+      .then(loop);
+  },
+
   addEmployee: () => {
     return Promise.all([db.getAllRoles(), db.viewAllEmployees()])
       .then(([roles, employees]) => [getChoices(roles), getChoices(employees)])
