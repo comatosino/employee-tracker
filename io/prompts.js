@@ -3,6 +3,7 @@ const io = require('inquirer');
 const {
   // departments
   VIEW_ALL_DEPARTMENTS,
+  VIEW_DEPARTMENT_BUDGET,
   ADD_DEPARTMENT,
   DELETE_DEPARTMENT,
   // roles
@@ -33,6 +34,10 @@ module.exports = {
         {
           name: 'View all departments',
           value: VIEW_ALL_DEPARTMENTS,
+        },
+        {
+          name: 'View department budget',
+          value: VIEW_DEPARTMENT_BUDGET,
         },
         {
           name: 'Add a department',
