@@ -18,10 +18,12 @@ const {
   UPDATE_EMPLOYEE_MANAGER,
   DELETE_EMPLOYEE,
   VIEW_EMPLOYEES_BY_DEPARTMENT,
+  VIEW_DEPARTMENT_BUDGET,
 } = require('./io/constants');
 
 const {
   viewAllDepartments,
+  viewUtilizedDepartmentBudget,
   addDepartment,
   deleteDepartment,
   viewAllRoles,
@@ -46,6 +48,9 @@ const main = () => {
       switch (response) {
         case VIEW_ALL_DEPARTMENTS:
           return viewAllDepartments();
+
+        case VIEW_DEPARTMENT_BUDGET:
+          return viewUtilizedDepartmentBudget();
 
         case ADD_DEPARTMENT:
           return addDepartment();
