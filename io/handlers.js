@@ -121,6 +121,29 @@ module.exports = {
       .then(loop);
   },
 
+  viewEmployeesByManager: () => {
+    return db
+      .viewAllEmployees()
+      .then(getChoices)
+      .then((choices) =>
+        io.prompt([
+          {
+            name: 'manager_id',
+            message: 'Please select a manager',
+            type: 'list',
+            choices,
+          },
+        ])
+      )
+      .then(({ manager_id }) => db.viewEmployeesByManager(manager_id))
+      .then(([rows]) => {
+        rows.length
+          ? console.table(rows)
+          : console.log(`This employee does not manage anyone`);
+      })
+      .then(loop);
+  },
+
   addEmployee: () => {
     return Promise.all([db.getAllRoles(), db.viewAllEmployees()])
       .then(([roles, employees]) => [getChoices(roles), getChoices(employees)])
