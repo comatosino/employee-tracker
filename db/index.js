@@ -100,7 +100,7 @@ class DB {
              CONCAT(e.first_name, ' ', e.last_name) AS name,
              role.title AS title,
              department.name AS 'department',
-             role.salary AS salary,
+             role.salary,
              CONCAT(m.first_name, ' ', m.last_name) AS manager
       FROM employee e
       LEFT JOIN role
@@ -110,6 +110,23 @@ class DB {
       LEFT JOIN employee m
       ON e.manager_id = m.id;
       `
+    );
+  }
+
+  viewEmployeesByManager(manager_id) {
+    return this.connection.promise().query(
+      `
+      SELECT employee.id,
+             CONCAT(employee.first_name, ' ', employee.last_name) AS name,
+             role.title,
+             role.salary,
+             department.name AS department
+      FROM employee
+      LEFT JOIN role ON role.id = employee.role_id
+      LEFT JOIN department ON department.id = role.department_id
+      WHERE employee.manager_id = ?;
+      `,
+      manager_id
     );
   }
 

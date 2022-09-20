@@ -12,6 +12,7 @@ const {
   DELETE_ROLE,
   // employees
   VIEW_ALL_EMPLOYEES,
+  VIEW_EMPLOYEES_BY_MANAGER,
   ADD_EMPLOYEE,
   UPDATE_EMPLOYEE_ROLE,
   UPDATE_EMPLOYEE_MANAGER,
@@ -67,6 +68,10 @@ module.exports = {
           value: VIEW_ALL_EMPLOYEES,
         },
         {
+          name: 'View employees by manager',
+          value: VIEW_EMPLOYEES_BY_MANAGER,
+        },
+        {
           name: 'Add an employee',
           value: ADD_EMPLOYEE,
         },
@@ -75,7 +80,7 @@ module.exports = {
           value: UPDATE_EMPLOYEE_ROLE,
         },
         {
-          name: "Update an employee manager",
+          name: 'Update an employee manager',
           value: UPDATE_EMPLOYEE_MANAGER,
         },
         {
