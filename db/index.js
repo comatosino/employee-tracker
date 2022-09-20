@@ -134,6 +134,17 @@ class DB {
     );
   }
 
+  updateEmployeeManager(id, manager_id) {
+    return this.connection.promise().query(
+      `
+      UPDATE employee
+      SET ?
+      WHERE ?
+      `,
+      [{ manager_id }, { id }]
+    );
+  }
+
   deleteEmployee(id) {
     return this.connection.promise().query(
       `

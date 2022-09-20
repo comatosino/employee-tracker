@@ -16,6 +16,7 @@ module.exports = {
   VIEW_ALL_EMPLOYEES: 'VIEW_ALL_EMPLOYEES',
   ADD_EMPLOYEE: 'ADD_EMPLOYEE',
   UPDATE_EMPLOYEE_ROLE: 'UPDATE_EMPLOYEE_ROLE',
+  UPDATE_EMPLOYEE_MANAGER: 'UPDATE_EMPLOYEE_MANAGER',
   DELETE_EMPLOYEE: 'DELETE_EMPLOYEE',
 
   // quit /////////////////////////////////////////////////////////////////////
