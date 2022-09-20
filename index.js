@@ -12,6 +12,7 @@ const {
   UPDATE_ROLE_SALARY,
   DELETE_ROLE,
   VIEW_ALL_EMPLOYEES,
+  VIEW_EMPLOYEES_BY_MANAGER,
   ADD_EMPLOYEE,
   UPDATE_EMPLOYEE_ROLE,
   UPDATE_EMPLOYEE_MANAGER,
@@ -27,6 +28,7 @@ const {
   updateRoleSalary,
   deleteRole,
   viewAllEmployees,
+  viewEmployeesByManager,
   addEmployee,
   updateEmployeeRole,
   updateEmployeeManager,
@@ -63,6 +65,9 @@ const main = () => {
 
         case VIEW_ALL_EMPLOYEES:
           return viewAllEmployees();
+
+        case VIEW_EMPLOYEES_BY_MANAGER:
+          return viewEmployeesByManager();
 
         case ADD_EMPLOYEE:
           return addEmployee();
