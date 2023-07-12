@@ -12,7 +12,7 @@ module.exports = {
 
   viewUtilizedDepartmentBudget: () => {
     return db
-      .viewDepartmentBudget()
+      .viewUtilizedDepartmentBudget()
       .then(([rows]) => console.table(rows))
       .then(loop);
   },

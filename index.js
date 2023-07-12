@@ -18,7 +18,7 @@ const {
   UPDATE_EMPLOYEE_MANAGER,
   DELETE_EMPLOYEE,
   VIEW_EMPLOYEES_BY_DEPARTMENT,
-  VIEW_DEPARTMENT_BUDGET,
+  VIEW_UTILIZED_DEPARTMENT_BUDGET,
 } = require('./io/constants');
 
 const {
@@ -49,7 +49,7 @@ const main = () => {
         case VIEW_ALL_DEPARTMENTS:
           return viewAllDepartments();
 
-        case VIEW_DEPARTMENT_BUDGET:
+        case VIEW_UTILIZED_DEPARTMENT_BUDGET:
           return viewUtilizedDepartmentBudget();
 
         case ADD_DEPARTMENT:
